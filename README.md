@@ -94,7 +94,3 @@
 ## 📂 文件说明
 
   * **`sms_receiver.py`：** Python Flask 服务端主文件。负责接收数据、提取验证码、复制到剪贴板和发送 Windows 通知。
-
-## ✨ star history
-
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://www.star-history.com/embed?secret=Z2hwX3lCajdscTlYZnBoSVJNdEhwRE0zWmVpZ1BsbEhhUTBtekZUOA==#KangHarrison/i2WinCode&Date" frameBorder="0"></iframe>
