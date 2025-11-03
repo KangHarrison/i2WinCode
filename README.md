@@ -2,7 +2,7 @@
 
 ## 💡 项目简介
 
-这是一个解决 **Windows 台式机 + iPhone** 用户痛点的实用小工具。本项目利用 iPhone 的**“快捷指令”自动化和 Python Flask 服务端，实现了在同一局域网（LAN）内，将收到的短信验证码安全、不经过公网**地实时转发到 Windows 台式机上。
+这是一个解决 **Windows 台式机 + iPhone** 用户痛点的实用小工具。本项目利用 iPhone 的**“快捷指令”自动化和 Python Flask 服务端，实现了在同一局域网（LAN）内，将收到的短信验证码安全、不经过公网**地实时转发到 **Windows 台式机**上。
 
 用户无需拿起手机，即可在电脑上接收到验证码通知，并自动复制到剪贴板，极大提高了登录效率和安全性。
 
@@ -56,14 +56,12 @@
     ```bash
     pip install flask plyer pyperclip
     ```
-3.  **查找本地 IP：** 在命令行中输入 `ipconfig`，找到您的电脑在局域网中的 IPv4 地址（例如：`192.168.1.10`）。
+3.  ~~**查找本地 IP：** 在命令行中输入 `ipconfig`，找到您的电脑在局域网中的 IPv4 地址（例如：`192.168.1.10`）。~~ （实际使用过程中ip地址可能会变，推荐使用主机名方式）
+3.  **查看本机主机名** 在命令行中输入 `hostname`，找到您的电脑主机名（例如：`Harrison`）。
 
 ### 第二步：运行并配置防火墙
 
-1.  **运行服务端：** 运行 `sms_receiver.py` 文件。
-    ```bash
-    python sms_receiver.py
-    ```
+1.  **运行服务端：** 双击 `python sms_receiver.pyw` 文件运行
 2.  **配置防火墙（关键步骤）：** 首次运行时，Windows 防火墙可能会拦截连接。您必须为 `python.exe` 进程添加入站规则，允许来自局域网的 **TCP 5000 端口**访问，否则 iPhone 将无法连接。
 
 ### 第三步：配置 iPhone 快捷指令
@@ -77,7 +75,7 @@
 4.  **添加操作（获取 URL 内容）：**
       * **设置变量：** (可选，将“信息正文”保存为变量 `短信内容`)
       * **获取 URL 内容：**
-          * **URL：** `http://[您的本地IP]:5000/sms_code` (替换您电脑的 IP 地址)
+          * **URL：** `http://主机名.local:5000/sms_code` (替换您电脑的主机名，例如：`http://Harrison.local:5000/sms_code`)
           * **方法：** `POST`
           * **请求主体：** `JSON` 格式，Key 为 `message`，Value 为之前设置的 `短信内容` 变量。
 
@@ -85,12 +83,10 @@
 
 为实现开机自动且**无窗口**运行，这是最简单的方法：
 
-1.**重命名文件**： 将您的主程序文件 sms_receiver.py **重命名**为 sms_receiver.pyw。Windows 会使用 pythonw.exe 来运行 .pyw 文件，该程序不会弹出命令行窗口。
-
-2.**设置开机自启**：
+**设置开机自启**：
 + 按下 Win + R 键，输入 shell:startup 并回车，打开 Windows **“启动”文件夹**。
 + 将 sms_receiver.pyw 文件（或其快捷方式）拖入此文件夹中。
 
 ## 📂 文件说明
 
-  * **`sms_receiver.py`：** Python Flask 服务端主文件。负责接收数据、提取验证码、复制到剪贴板和发送 Windows 通知。
+  * **`sms_receiver.pyw`：** Python Flask 服务端主文件。负责接收数据、提取验证码、复制到剪贴板和发送 Windows 通知。
